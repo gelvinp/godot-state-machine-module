@@ -1,0 +1,5 @@
+# SCsub
+
+Import('env')
+
+env.add_source_files(env.modules_sources, ["state.cpp", "state_machine.cpp", "register_types.cpp"])

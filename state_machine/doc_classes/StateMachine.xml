@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StateMachine" inherits="Node" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
+	<brief_description>
+		An object representing and controlling a set of behaviors.
+	</brief_description>
+	<description>
+		A StateMachine object, with [State] objects as it's children, will proxy its [method Node._process], [method Node._physics_process], and [method Node._unhandled_input] events to the active state.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_state">
+			<return type="State" />
+			<description>
+				Get the currently active state.
+			</description>
+		</method>
+		<method name="transition_to">
+			<return type="void" />
+			<param index="0" name="state_name" type="NodePath" />
+			<param index="1" name="message" type="Dictionary" default="{}" />
+			<description>
+				Transition to a new [State], given by the [NodePath] relative to the StateMachine. The optional message will be passed to the new State's [method State.enter] method.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="initial_message" type="Dictionary" setter="set_initial_message" getter="get_initial_message" default="{}">
+			The initial message to pass to the initial State's [method State.enter] method.
+		</member>
+		<member name="initial_state" type="NodePath" setter="set_initial_state" getter="get_initial_state" default="NodePath(&quot;&quot;)">
+			The initial state to make active.
+		</member>
+	</members>
+	<signals>
+		<signal name="transitioned">
+			<param index="0" name="state_name" type="String" />
+			<description>
+				Emitted when the StateMachine transitions to a new state. [param state_name] contains the Node's [member Node.name], not the [NodePath] relative to the StateMachine. This signal is emitted after the new State's [method State.enter] method has been called.
+			</description>
+		</signal>
+	</signals>
+</class>
