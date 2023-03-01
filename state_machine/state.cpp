@@ -5,11 +5,6 @@
 
 void State::_bind_methods()
 {
-    ClassDB::bind_method(D_METHOD("enter", "message"), &State::enter, DEFVAL(Dictionary()));
-    ClassDB::bind_method(D_METHOD("process", "delta"), &State::process);
-    ClassDB::bind_method(D_METHOD("physics_process", "delta"), &State::physics_process);
-    ClassDB::bind_method(D_METHOD("handle_input", "event"), &State::handle_input);
-    ClassDB::bind_method(D_METHOD("exit", "leaving_for"), &State::exit);
 	ClassDB::bind_method(D_METHOD("set_state_machine", "state_machine"), &State::set_state_machine);
 	ClassDB::bind_method(D_METHOD("get_state_machine"), &State::get_state_machine);
 
@@ -26,4 +21,49 @@ void State::set_state_machine(StateMachine* state_machine)
 StateMachine* State::get_state_machine()
 {
 	return _state_machine;
+}
+
+
+void State::_call_enter(const Dictionary& msg)
+{
+	if (GDVIRTUAL_IS_OVERRIDDEN(enter))
+	{
+		GDVIRTUAL_CALL(enter, msg);
+	}
+}
+
+
+void State::_call_process(double delta)
+{
+	if (GDVIRTUAL_IS_OVERRIDDEN(process))
+	{
+		GDVIRTUAL_CALL(process, delta);
+	}
+}
+
+
+void State::_call_physics_process(double delta)
+{
+	if (GDVIRTUAL_IS_OVERRIDDEN(physics_process))
+	{
+		GDVIRTUAL_CALL(physics_process, delta);
+	}
+}
+
+
+void State::_call_handle_input(const Ref<InputEvent>& event)
+{
+	if (GDVIRTUAL_IS_OVERRIDDEN(handle_input))
+	{
+		GDVIRTUAL_CALL(handle_input, event);
+	}
+}
+
+
+void State::_call_exit(const String& leaving_for)
+{
+	if (GDVIRTUAL_IS_OVERRIDDEN(exit))
+	{
+		GDVIRTUAL_CALL(exit, leaving_for);
+	}
 }

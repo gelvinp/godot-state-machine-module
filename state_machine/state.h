@@ -21,15 +21,22 @@ class State : public Node
 	StateMachine* get_state_machine();
 
 	protected:
+	GDVIRTUAL1(enter, const Dictionary&)
+	GDVIRTUAL1(process, double)
+	GDVIRTUAL1(physics_process, double)
+	GDVIRTUAL1(handle_input, const Ref<InputEvent>&)
+	GDVIRTUAL1(exit, const String&)
+
+	friend class StateMachine;
+	void _call_enter(const Dictionary&);
+	void _call_process(double);
+	void _call_physics_process(double);
+	void _call_handle_input(const Ref<InputEvent>&);
+	void _call_exit(const String&);
+
 	static void _bind_methods();
 
 	public:
-	void enter(const Dictionary& _msg) {}
-	void process(float _delta) {}
-	void physics_process(float _delta) {}
-	void handle_input(const Ref<InputEvent>& _event) {}
-	void exit(const String& _leaving_for) {}
-
 	State() {};
 };
 

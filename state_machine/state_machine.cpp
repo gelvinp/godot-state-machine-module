@@ -35,11 +35,11 @@ void StateMachine::_notification(int p_what) {
 			break;
 		}
 		case NOTIFICATION_PROCESS: {
-			state->get_script_instance()->call("process", get_process_delta_time());
+			state->_call_process(get_process_delta_time());
 			break;
 		}
 		case NOTIFICATION_PHYSICS_PROCESS: {
-			state->get_script_instance()->call("physics_process", get_physics_process_delta_time());
+			state->_call_physics_process(get_physics_process_delta_time());
 			break;
 		}
 	}
@@ -56,7 +56,7 @@ void StateMachine::_prepare_states()
 	}
 
 	state = Object::cast_to<State>(get_node(initial_state));
-	state->get_script_instance()->call("enter", initial_message);
+	state->_call_enter(initial_message);
 
 	set_process(true);
 	set_physics_process(true);
@@ -71,7 +71,7 @@ void StateMachine::unhandled_input(const Ref<InputEvent>& event)
 		return;
 	}
 
-	state->get_script_instance()->call("handle_input", event);
+	state->_call_handle_input(event);
 }
 
 
@@ -84,9 +84,9 @@ void StateMachine::transition_to(const NodePath& state_name, const Dictionary& m
 
 	State* new_state = Object::cast_to<State>(get_node(state_name));
 
-	state->get_script_instance()->call("exit", new_state->get_name());
+	state->_call_exit(new_state->get_name());
 	state = new_state;
-	state->get_script_instance()->call("enter", msg);
+	state->_call_enter(msg);
 
 	emit_signal("transitioned", state->get_name());
 }
