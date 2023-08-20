@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="State" inherits="Node" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
+<class name="State" inherits="Node" version="4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
 	<brief_description>
 		An object representing one discrete behavior.
 	</brief_description>
@@ -9,35 +9,35 @@
 	<tutorials>
 	</tutorials>
 	<methods>
-		<method name="enter">
+		<method name="enter" qualifiers="virtual">
 			<return type="void" />
-			<param index="0" name="message" type="Dictionary" default="{}" />
+			<param index="0" name="message" type="Dictionary" />
 			<description>
 				Do any prep work needed when entering the state, with an optional message.
 			</description>
 		</method>
-		<method name="exit">
+		<method name="exit" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="leaving_for" type="String" />
 			<description>
 				Do any cleanup needed when leaving the state, given the name of the next state.
 			</description>
 		</method>
-		<method name="handle_input">
+		<method name="handle_input" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="event" type="InputEvent" />
 			<description>
 				Handle an input.
 			</description>
 		</method>
-		<method name="physics_process">
+		<method name="physics_process" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="delta" type="float" />
 			<description>
 				Handle the physics_process step of the main loop.
 			</description>
 		</method>
-		<method name="process">
+		<method name="process" qualifiers="virtual">
 			<return type="void" />
 			<param index="0" name="delta" type="float" />
 			<description>

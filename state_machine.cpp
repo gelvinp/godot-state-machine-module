@@ -1,9 +1,9 @@
-/* state_machine.cpp */
+#include "state_machine.h"
 
 #include "state.h"
-#include "state_machine.h"
-#include "core/object/callable_method_pointer.h"
+
 #include "core/core_bind.h"
+#include "core/object/callable_method_pointer.h"
 #include "core/variant/typed_array.h"
 
 
@@ -31,15 +31,22 @@ void StateMachine::_notification(int p_what) {
 
 	switch (p_what) {
 		case NOTIFICATION_READY: {
-			get_owner()->connect("ready", callable_mp(this, &StateMachine::_prepare_states), CONNECT_ONE_SHOT);
+			if (get_owner() != nullptr)
+			{
+				get_owner()->connect("ready", callable_mp(this, &StateMachine::_prepare_states), CONNECT_ONE_SHOT);
+			}
+			else
+			{
+				_prepare_states();
+			}
 			break;
 		}
 		case NOTIFICATION_PROCESS: {
-			state->_call_process(get_process_delta_time());
+			GDVIRTUAL_CALL_PTR(state, process, get_process_delta_time());
 			break;
 		}
 		case NOTIFICATION_PHYSICS_PROCESS: {
-			state->_call_physics_process(get_physics_process_delta_time());
+			GDVIRTUAL_CALL_PTR(state, physics_process, get_physics_process_delta_time());
 			break;
 		}
 	}
@@ -56,7 +63,7 @@ void StateMachine::_prepare_states()
 	}
 
 	state = Object::cast_to<State>(get_node(initial_state));
-	state->_call_enter(initial_message);
+	GDVIRTUAL_CALL_PTR(state, enter, initial_message);
 
 	set_process(true);
 	set_physics_process(true);
@@ -71,54 +78,21 @@ void StateMachine::unhandled_input(const Ref<InputEvent>& event)
 		return;
 	}
 
-	state->_call_handle_input(event);
+	GDVIRTUAL_CALL_PTR(state, handle_input, event);
 }
 
 
 void StateMachine::transition_to(const NodePath& state_name, const Dictionary& msg)
 {
-	if (!has_node(state_name))
-	{
-		return;
-	}
+	ERR_FAIL_COND_MSG(!has_node(state_name), vformat("StateMachine cannot transition to non-existent state: %s", state_name));
 
 	State* new_state = Object::cast_to<State>(get_node(state_name));
 
-	state->_call_exit(new_state->get_name());
+	GDVIRTUAL_CALL_PTR(state, exit, new_state->get_name());
 	state = new_state;
-	state->_call_enter(msg);
+	GDVIRTUAL_CALL_PTR(state, enter, msg);
 
 	emit_signal("transitioned", state->get_name());
-}
-
-
-NodePath StateMachine::get_initial_state()
-{
-	return initial_state;
-}
-
-
-void StateMachine::set_initial_state(NodePath new_initial_state)
-{
-	initial_state = new_initial_state;
-}
-
-
-Dictionary StateMachine::get_initial_message()
-{
-	return initial_message;
-}
-
-
-void StateMachine::set_initial_message(Dictionary new_initial_message)
-{
-	initial_message = new_initial_message;
-}
-
-
-State* StateMachine::get_state()
-{
-	return state;
 }
 
 

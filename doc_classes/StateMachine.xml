@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="StateMachine" inherits="Node" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
+<class name="StateMachine" inherits="Node" version="4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
 	<brief_description>
 		An object representing and controlling a set of behaviors.
 	</brief_description>
 	<description>
-		A StateMachine object, with [State] objects as it's children, will proxy its [method Node._process], [method Node._physics_process], and [method Node._unhandled_input] events to the active state.
+		A StateMachine object. With [State] objects as it's children, will proxy its [method Node._process], [method Node._physics_process], and [method Node._unhandled_input] events to the active state.
 	</description>
 	<tutorials>
 	</tutorials>
 	<methods>
-		<method name="get_state">
+		<method name="get_state" qualifiers="const">
 			<return type="State" />
 			<description>
 				Get the currently active state.

@@ -1,5 +1,8 @@
 # State Machine Module for Godot
 
-Based on GDQuest's state machine. Copy `state_machine` into the `modules` folder of your godot source, and build the engine as normal.
+Based on GDQuest's state machine.
 
-Icons used are from kenney.nl (💜)
+Clone into Godot's `modules` directory as `state_machine`,
+i.e. `git clone https://github.com/gelvinp/godot-state-machine-module.git modules/state_machine`
+
+Icons used are from kenney.nl (💜), offered under CC0.
