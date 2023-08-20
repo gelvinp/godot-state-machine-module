@@ -4,7 +4,7 @@
 		An object representing and controlling a set of behaviors.
 	</brief_description>
 	<description>
-		A StateMachine object, with [State] objects as it's children, will proxy its [method Node._process], [method Node._physics_process], and [method Node._unhandled_input] events to the active state.
+		A StateMachine object. With [State] objects as it's children, will proxy its [method Node._process], [method Node._physics_process], and [method Node._unhandled_input] events to the active state.
 	</description>
 	<tutorials>
 	</tutorials>

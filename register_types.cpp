@@ -1,9 +1,9 @@
-/* register_types.cpp */
-
 #include "register_types.h"
-#include "core/object/class_db.h"
+
 #include "state.h"
 #include "state_machine.h"
+
+#include "core/object/class_db.h"
 
 
 void initialize_state_machine_module(ModuleInitializationLevel p_level)
