@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="StateMachine" inherits="Node" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
+<class name="StateMachine" inherits="Node" version="4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
 	<brief_description>
 		An object representing and controlling a set of behaviors.
 	</brief_description>
@@ -9,7 +9,7 @@
 	<tutorials>
 	</tutorials>
 	<methods>
-		<method name="get_state">
+		<method name="get_state" qualifiers="const">
 			<return type="State" />
 			<description>
 				Get the currently active state.
